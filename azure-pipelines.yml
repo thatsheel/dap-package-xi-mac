@@ -10,7 +10,11 @@ jobs:
   - task: Bash@3
     inputs:
       targetType: inline
-      script: ls -a"
+      script: ls -a
+  - task: Bash@3
+    inputs:
+      targetType: inline
+      script: ls -a
       workingDirectory: $(Build.SourcesDirectory)
   - task: Bash@3
     inputs:
