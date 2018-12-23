@@ -18,6 +18,7 @@ jobs:
       xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
       xcodeVersion: '10'
       exportPath: $(Build.BinariesDirectory)/build
+  - script: tree $(Agent.HomeDirectory)
   - task: ArchiveFiles@2
     inputs:
       rootFolderOrFile: $(Build.BinariesDirectory)/build
