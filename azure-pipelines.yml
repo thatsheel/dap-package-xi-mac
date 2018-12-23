@@ -10,17 +10,8 @@ jobs:
   - task: Bash@3
     inputs:
       targetType: inline
-      script: ls -a
-  - task: Bash@3
-    inputs:
-      targetType: inline
-      script: ls -a
-      workingDirectory: $(Build.SourcesDirectory)
-  - task: Bash@3
-    inputs:
-      targetType: inline
       script: xcodebuild -scheme "XiEditor"
-      workingDirectory: $(Build.SourcesDirectory)
+      workingDirectory: $(Build.SourcesDirectory)/xi-mac
   - task: ArchiveFiles@2
     inputs:
       rootFolderOrFile: '$(Build.SourcesDirectory)/build/Release/'
