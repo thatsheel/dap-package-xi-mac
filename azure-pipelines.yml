@@ -15,8 +15,8 @@ jobs:
   - task: Bash@3
     inputs:
       targetType: inline
-      script: pwd;ls -a; ls -a build; ls -a build/Release;
-      workingDirectory: $(Build.SourcesDirectory)/xi-mac
+      script: pwd;ls -a;
+      workingDirectory: $(Build.BinariesDirectory)
   - task: ArchiveFiles@2
     inputs:
       rootFolderOrFile: '$(Build.SourcesDirectory)/x-mac/build/Release/'
