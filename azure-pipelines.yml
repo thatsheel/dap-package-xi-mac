@@ -12,7 +12,7 @@ jobs:
     inputs:
       actions: 'build'
       scheme: 'XiEditor'
-      sdk: 'macosx10.13'
+      sdk: 'macosx10.14'
       configuration: 'Release'
       xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
       xcodeVersion: '10'
