@@ -17,8 +17,8 @@ jobs:
       configuration: 'Release'
       xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
       xcodeVersion: '10'
-      exportPath: $(Build.BinariesDirectory)/archive
-      archivePath: $(Build.BinariesDirectory)/build
+      exportPath: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)'
+      packageApp: false
       exportMethod: ad-hoc
   - script: tree $(Agent.HomeDirectory)
   - task: ArchiveFiles@2
