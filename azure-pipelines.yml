@@ -10,6 +10,11 @@ jobs:
   - task: Bash@3
     inputs:
       targetType: inline
+      script: ls -a"
+      workingDirectory: $(Build.SourcesDirectory)
+  - task: Bash@3
+    inputs:
+      targetType: inline
       script: xcodebuild -scheme "XiEditor"
       workingDirectory: $(Build.SourcesDirectory)
   - task: ArchiveFiles@2
