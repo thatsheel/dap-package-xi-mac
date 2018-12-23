@@ -12,9 +12,14 @@ jobs:
       targetType: inline
       script: xcodebuild -scheme "XiEditor"
       workingDirectory: $(Build.SourcesDirectory)/xi-mac
+  - task: Bash@3
+    inputs:
+      targetType: inline
+      script: pwd;ls -a; ls -a build; ls -a build/Release;
+      workingDirectory: $(Build.SourcesDirectory)/xi-mac
   - task: ArchiveFiles@2
     inputs:
-      rootFolderOrFile: '$(Build.SourcesDirectory)x-mac/build/Release/'
+      rootFolderOrFile: '$(Build.SourcesDirectory)/x-mac/build/Release/'
       includeRootFolder: true
       archiveType: 'tar'
       tarCompression: 'gz'
