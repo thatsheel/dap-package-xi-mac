@@ -1,0 +1,30 @@
+jobs:
+- job: Build
+  timeoutInMinutes: 360
+  pool:
+    vmImage: 'macOS-10.13'
+  steps:
+  - script: curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
+    displayName: 'Install rustc'
+  - script: |
+      export PATH=$PATH:$HOME/.cargo/bin
+  - task: Bash@3
+    inputs:
+      targetType: inline
+      script: xcodebuild -scheme "XiEditor"
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: '$(Build.SourcesDirectory)/build/Release/'
+      includeRootFolder: true
+      archiveType: 'tar'
+      tarCompression: 'gz'
+      archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).tar.gz
+      replaceExistingArchive: true
+  - task: UniversalPackages@0
+    displayName: Universal Publish
+    inputs:
+      command: publish
+      publishDirectory: '$(Build.ArtifactStagingDirectory)'
+      vstsFeedPublish: 'dap-package-xi-mac'
+      vstsFeedPackagePublish: 'dap-xi-mac'
+      packagePublishDescription: '<Package description>'
