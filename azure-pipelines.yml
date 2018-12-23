@@ -14,7 +14,7 @@ jobs:
       workingDirectory: $(Build.SourcesDirectory)/xi-mac
   - task: ArchiveFiles@2
     inputs:
-      rootFolderOrFile: '$(Build.SourcesDirectory)/build/Release/'
+      rootFolderOrFile: '$(Build.SourcesDirectory)x-mac/build/Release/'
       includeRootFolder: true
       archiveType: 'tar'
       tarCompression: 'gz'
