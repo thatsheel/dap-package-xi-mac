@@ -8,16 +8,14 @@ jobs:
   - script: brew install tree
   - script: |
       export PATH=$PATH:$HOME/.cargo/bin
-  - task: Bash@3
+  - task: Xcode@5
     inputs:
-      targetType: inline
-      script: xcodebuild -scheme "XiEditor"
-      workingDirectory: $(Build.SourcesDirectory)/xi-mac
-  - task: Bash@3
-    inputs:
-      targetType: inline
-      script: tree $(Build.SourcesDirectory);
-      workingDirectory: $(Build.BinariesDirectory)
+      actions: 'build'
+      scheme: ''
+      sdk: 'macosx10.13'
+      configuration: 'Release'
+      xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
+      xcodeVersion: '10'
   - task: ArchiveFiles@2
     inputs:
       rootFolderOrFile: '$(Build.SourcesDirectory)/x-mac/build/Release/'
