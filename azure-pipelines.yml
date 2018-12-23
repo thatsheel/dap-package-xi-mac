@@ -5,7 +5,6 @@ jobs:
     vmImage: 'macOS-10.13'
   steps:
   - script: curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
-    displayName: 'Install rustc'
   - script: |
       export PATH=$PATH:$HOME/.cargo/bin
   - task: Bash@3
