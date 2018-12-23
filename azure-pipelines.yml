@@ -17,13 +17,12 @@ jobs:
       configuration: 'Release'
       xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
       xcodeVersion: '10'
-      exportPath: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)'
+      exportPath: '$(agent.buildDirectory)/output/macosx10.14/Release'
       packageApp: false
-      exportMethod: ad-hoc
-  - script: tree $(Agent.HomeDirectory)
+  - script: tree $(agent.buildDirectory)/output/macosx10.14/Release
   - task: ArchiveFiles@2
     inputs:
-      rootFolderOrFile: $(Build.BinariesDirectory)
+      rootFolderOrFile: $(agent.buildDirectory)/output/macosx10.14/Release
       includeRootFolder: true
       archiveType: 'tar'
       tarCompression: 'gz'
