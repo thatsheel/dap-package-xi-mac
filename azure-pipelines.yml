@@ -8,7 +8,7 @@ jobs:
   - script: brew install tree
   - script: |
       export PATH=$PATH:$HOME/.cargo/bin
-  - script: mkdir -p $(Build.BinariesDirectory)/build
+  - script: mkdir -p $(Build.BinariesDirectory)/build;mkdir -p $(Build.BinariesDirectory)/archive
   - task: Xcode@5
     inputs:
       actions: 'build'
@@ -17,11 +17,13 @@ jobs:
       configuration: 'Release'
       xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
       xcodeVersion: '10'
-      exportPath: $(Build.BinariesDirectory)/build
+      exportPath: $(Build.BinariesDirectory)/archive
+      archivePath: $(Build.BinariesDirectory)/build
+      exportMethod: ad-hoc
   - script: tree $(Agent.HomeDirectory)
   - task: ArchiveFiles@2
     inputs:
-      rootFolderOrFile: $(Build.BinariesDirectory)/build
+      rootFolderOrFile: $(Build.BinariesDirectory)
       includeRootFolder: true
       archiveType: 'tar'
       tarCompression: 'gz'
