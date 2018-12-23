@@ -11,14 +11,15 @@ jobs:
   - task: Xcode@5
     inputs:
       actions: 'build'
-      scheme: ''
+      scheme: 'XiEditor'
       sdk: 'macosx10.13'
       configuration: 'Release'
       xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
       xcodeVersion: '10'
+      exportPath: $(Build.BinariesDirectory)/build
   - task: ArchiveFiles@2
     inputs:
-      rootFolderOrFile: '$(Build.SourcesDirectory)/x-mac/build/Release/'
+      rootFolderOrFile: '$(Build.BinariesDirectory)/build'
       includeRootFolder: true
       archiveType: 'tar'
       tarCompression: 'gz'
