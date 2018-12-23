@@ -5,6 +5,7 @@ jobs:
     vmImage: 'macOS-10.13'
   steps:
   - script: curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
+  - script: brew install tree
   - script: |
       export PATH=$PATH:$HOME/.cargo/bin
   - task: Bash@3
@@ -15,7 +16,7 @@ jobs:
   - task: Bash@3
     inputs:
       targetType: inline
-      script: pwd;ls -a;
+      script: tree $(Build.SourcesDirectory);
       workingDirectory: $(Build.BinariesDirectory)
   - task: ArchiveFiles@2
     inputs:
