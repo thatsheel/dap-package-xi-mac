@@ -1,0 +1,38 @@
+jobs:
+- job: Build
+  timeoutInMinutes: 360
+  pool:
+    vmImage: 'macOS-10.13'
+  steps:
+  - script: curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
+  - script: brew install tree
+  - script: |
+      export PATH=$PATH:$HOME/.cargo/bin
+  - script: mkdir -p $(Build.BinariesDirectory)/build;mkdir -p $(Build.BinariesDirectory)/archive
+  - task: Xcode@5
+    inputs:
+      actions: 'build'
+      scheme: 'XiEditor'
+      sdk: 'macosx10.14'
+      configuration: 'Release'
+      xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
+      xcodeVersion: '10'
+      exportPath: '$(agent.buildDirectory)/output/macosx10.14/Release'
+      packageApp: false
+  - script: tree $(agent.buildDirectory)/output/macosx10.14/Release
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: $(agent.buildDirectory)/output/macosx10.14/Release
+      includeRootFolder: true
+      archiveType: 'tar'
+      tarCompression: 'gz'
+      archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).tar.gz
+      replaceExistingArchive: true
+  - task: UniversalPackages@0
+    displayName: Universal Publish
+    inputs:
+      command: publish
+      publishDirectory: '$(Build.ArtifactStagingDirectory)'
+      vstsFeedPublish: 'dap-package-xi-mac'
+      vstsFeedPackagePublish: 'dap-xi-mac'
+      packagePublishDescription: '<Package description>'
